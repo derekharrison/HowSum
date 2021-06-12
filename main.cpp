@@ -36,7 +36,7 @@ r_elem can_sum(int n, int A[], int target_sum, int sum, t_elem** m_table, std::v
     }
     else {
         for(int i = 0; i < n; ++i) {
-        	int sum_o = sum + A[i];
+            int sum_o = sum + A[i];
             if(sum_o != sum) {
                 if(r_element.array.size() == 0) {
                     r_element.array = array_elems;

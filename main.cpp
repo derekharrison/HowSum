@@ -11,16 +11,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct table_element {
-    bool is_set = false;
-    bool sum_possible;
-    std::vector <int> array;
-} t_elem;
-
 typedef struct result_element {
     bool sum_possible;
     std::vector <int> array;
 } r_elem;
+
+typedef struct table_element {
+    bool is_set = false;
+    r_elem r_element;
+} t_elem;
 
 int num_calls = 0;
 
@@ -32,7 +31,7 @@ r_elem can_sum(int n, int A[], int target_sum, int sum, t_elem** m_table, std::v
     num_calls++;
 
     if(m_table[sum]->is_set == true) {
-        return r_element = {m_table[sum]->sum_possible, m_table[sum]->array};
+        return r_element = m_table[sum]->r_element;
     }
     else {
         for(int i = 0; i < n; ++i) {
@@ -64,8 +63,8 @@ r_elem can_sum(int n, int A[], int target_sum, int sum, t_elem** m_table, std::v
         }
 
         m_table[sum]->is_set = true;
-        m_table[sum]->sum_possible = sum_possible;
-        m_table[sum]->array = r_element.array ;
+        m_table[sum]->r_element.sum_possible = sum_possible;
+        m_table[sum]->r_element.array = r_element.array ;
         r_element = {sum_possible, r_element.array};
     }
 
@@ -79,7 +78,7 @@ r_elem how_sum(int n, int A[], int target_sum) {
     for(int i = 0; i < target_sum + 1; ++i) {
         m_table[i] = new t_elem;
         m_table[i]->is_set = false;
-        m_table[i]->sum_possible = false;
+        m_table[i]->r_element.sum_possible = false;
     }
 
     r_elem r_element = {};
